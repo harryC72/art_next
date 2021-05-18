@@ -1,7 +1,21 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import App, { Container } from 'next/app'
+import React from 'react'
+import withReduxStore from '../lib/with-redux-store'
+import { Provider } from 'react-redux'
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+class MyApp extends App {
+  render() {
+    const { Component, pageProps, reduxStore } = this.props
+    return (
+      <Container>
+        <Provider store={reduxStore}>
+          <Component {...pageProps} />
+        </Provider>
+      </Container>
+    )
+  }
 }
 
-export default MyApp
+export default withReduxStore(MyApp)
